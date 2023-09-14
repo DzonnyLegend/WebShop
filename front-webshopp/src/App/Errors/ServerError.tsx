@@ -8,7 +8,7 @@ export default function ServerError(){
         <Container component={Paper}>
             {state?.error ? (
                 <>
-                    <Typography gutterBottom variant="h3" color='secondary'>
+                    <Typography gutterBottom variant="h3" color='error'>
                         {state.error.title}
                     </Typography>
                     <Divider />
