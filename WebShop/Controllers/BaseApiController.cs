@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebShop.Model;
 
 namespace WebShop.API.Controllers
 {
@@ -6,5 +7,6 @@ namespace WebShop.API.Controllers
     [Route("api/[controller]")]
     public class BaseApiController : ControllerBase
     {
+        
     }
 }

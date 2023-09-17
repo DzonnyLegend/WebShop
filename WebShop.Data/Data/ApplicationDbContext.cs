@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using WebShop.Data.Model;
 using WebShop.Model;
 
 namespace WebShop.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -13,11 +16,19 @@ namespace WebShop.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-
         public DbSet<Basket> Baskets { get; set; }
 
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+           
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(r => new {r.UserId, r.RoleId});
+            modelBuilder.Entity<IdentityUserLogin<string>>().HasKey(l => new {l.LoginProvider, l.ProviderKey, l.UserId});
+            modelBuilder.Entity<IdentityUserToken<string>>().HasNoKey();
+            
+
+
+
             modelBuilder.Entity<Product>().HasData(
                 new Product {
                     Id = 1,
@@ -225,6 +236,7 @@ namespace WebShop.Data
                     QuantityInStock = 100
                 }
                 );
+            
         }
     }
 }
